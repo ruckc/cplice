@@ -16,4 +16,4 @@ software-push: software-build
 .PHONY: software-build data-build software-push data-push
 
 cplice:
-	python cplice.py -k localhost/test/cplice-software:latest localhost/test/cplice-data:latest localhost/test/cplice:latest
+	python cplice.py ${repo}/cplice-software:latest ${repo}/cplice-data:latest ${repo}/cplice:latest
