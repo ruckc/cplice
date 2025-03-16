@@ -95,6 +95,7 @@ class Registry:
             data = bytes(json.dumps(jsondata), "utf-8")
         digest = f"sha256:{hashlib.sha256(data).hexdigest()}"
         url = f"https://{self.host}/v2/{image}/blobs/uploads/"
+        print("POST", url + "?digest=" + digest)
         response = self.session.post(
             url,
             headers=self.__headers({"Content-Type": "application/octet-stream"}),
@@ -110,6 +111,7 @@ class Registry:
 
     def store_manifest(self, image, manifest):
         url = f"https://{self.host}/v2/{image}/manifests/latest"
+        print("PUT", url)
         data = json.dumps(manifest)
         response = self.session.put(
             url,
@@ -122,7 +124,7 @@ class Registry:
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            print(response.text)
+            print(json.dumps(json.loads(response.text), indent=2))
             raise e
 
 
